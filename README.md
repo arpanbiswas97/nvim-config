@@ -17,7 +17,8 @@ Ensure you have the following installed on your system:
 
 ```bash
 # Language Servers & Formatter
-pip install basedpyright ruff
+uv tool install basedpyright
+uv tool install ruff
 
 # Optional: Lua Formatter (for config editing)
 # npm install -g stylua
