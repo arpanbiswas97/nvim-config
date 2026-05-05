@@ -66,6 +66,28 @@ To update your plugins to the latest versions:
 2. Run `:PackUpdate`.
 3. Review the changes and press `:w` to confirm the update.
 
+## 🚀 Future Proofing (Expanding to Other Languages)
+
+This config is designed to be easily expandable. When you're ready to learn TypeScript or Rust, follow these 2026 standards:
+
+### 🔷 TypeScript
+- **Standard LSP**: `vtsls` (Faster and more feature-rich than the old `tsserver`).
+- **Tooling**:
+  ```bash
+  npm install -g @vtsls/language-server
+  npm install -g @biomejs/biome # Modern, fast alternative to Prettier
+  ```
+- **Config**: Add `vim.lsp.enable('vtsls')` to `init.lua` and `:TSInstall typescript`.
+
+### 🦀 Rust
+- **Standard LSP**: `rust-analyzer` (The industry standard).
+- **Standard Plugin**: `rustaceanvim` (Succesor to rust-tools; handles Rust-specific commands natively).
+- **Tooling**:
+  ```bash
+  rustup component add rust-analyzer
+  ```
+- **Config**: In Neovim 0.12, add `https://github.com/mrcjkb/rustaceanvim` to your `vim.pack.add` list. It will automatically set up `rust-analyzer` for you.
+
 ## 💡 Tips
 
 1. **Oil.nvim**: When in the explorer (`<Space> e`), you can rename, create, or delete files just by editing the text. Save the buffer (`:w`) to apply the changes to your disk.
