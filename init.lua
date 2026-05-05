@@ -65,7 +65,10 @@ require('mini.comment').setup()     -- Commenting with 'gc'
 require('mini.icons').setup()       -- Icons for various UI elements
 
 -- oil.nvim: Edit your file system like a buffer
-require('oil').setup({ columns = { "icon" } })
+require('oil').setup({
+  columns = { "icon" },
+  view_options = { show_hidden = true },
+})
 
 -- gitsigns: Git gutter signs and hunk staging
 require('gitsigns').setup()
