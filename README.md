@@ -41,17 +41,17 @@ Choose the platform block that applies to you, then install the shared npm tools
 
 ```sh
 # macOS
-brew install basedpyright ruff rust-analyzer shfmt stylua taplo
+brew install basedpyright ruff rust-analyzer shfmt stylua taplo prettier
 
 # Arch Linux
-sudo pacman -S ruff rust-analyzer shfmt stylua taplo-cli
+sudo pacman -S ruff rust-analyzer shfmt stylua taplo-cli prettier
 
 # Python tools fallback, if your OS package manager does not provide them
 uv tool install basedpyright
 uv tool install ruff
 
-# TypeScript / JavaScript and Prettier formatting
-npm install -g @vtsls/language-server typescript prettier
+# TypeScript / JavaScript
+npm install -g @vtsls/language-server typescript
 ```
 
 Rust project support also needs a working Rust toolchain with `cargo`; a standard `rustup` install includes `rustfmt`.
