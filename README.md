@@ -8,14 +8,14 @@ The philosophy: **prefer native features, prefer fewer plugins, prefer one clear
 
 ## What's inside
 
-| Plugin | Why it's here |
-|---|---|
-| `tokyonight.nvim` | Colorscheme. Transparent variant. |
-| `mini.nvim` | A coherent set of small modules: `ai`, `surround`, `pairs`, `bracketed`, `files`, `pick`, `extra`, `icons`, `statusline`, `notify`. |
-| `gitsigns.nvim` | Battle-tested git gutter + hunk staging. |
-| `conform.nvim` | One declarative table for ruff / biome / prettier / rustfmt / stylua / taplo / shfmt. |
-| `nvim-treesitter` (`main`) | Parser installer + queries. Highlighting itself is native. |
-| `nvim-lspconfig` | Default LSP configs for basedpyright, ruff, vtsls, and rust-analyzer. |
+| Plugin                     | Why it's here                                                                                                                       |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `tokyonight.nvim`          | Colorscheme. Transparent variant.                                                                                                   |
+| `mini.nvim`                | A coherent set of small modules: `ai`, `surround`, `pairs`, `bracketed`, `files`, `pick`, `extra`, `icons`, `statusline`, `notify`. |
+| `gitsigns.nvim`            | Battle-tested git gutter + hunk staging.                                                                                            |
+| `conform.nvim`             | One declarative table for ruff / biome / prettier / rustfmt / stylua / taplo / shfmt.                                               |
+| `nvim-treesitter` (`main`) | Parser installer + queries. Highlighting itself is native.                                                                          |
+| `nvim-lspconfig`           | Default LSP configs for basedpyright, ruff, vtsls, and rust-analyzer.                                                               |
 
 **Intentionally not here:** `nvim-cmp` / `blink.cmp` (native `vim.lsp.completion` covers it), `oil.nvim` (`mini.files` covers it), `nvim-tree` / `neo-tree` (same), `telescope.nvim` (`mini.pick` covers it), `nvim-dap` (no breakpoint debugging today; run pdb / pytest / cargo test from `:terminal`), `Comment.nvim` / `mini.comment` (native `gc` / `gcc` covers it), `which-key.nvim` (out for now; add `mini.clue` later if you forget keymaps), `lazy.nvim` (`vim.pack` covers it).
 
@@ -29,34 +29,32 @@ The philosophy: **prefer native features, prefer fewer plugins, prefer one clear
 - `git`
 - **`tree-sitter` CLI** — required by the rewritten `nvim-treesitter` main branch to compile parsers. Install with one of:
   ```sh
-  brew install tree-sitter           # macOS, easiest
-  cargo install tree-sitter-cli      # cross-platform, user-local
-  npm install -g tree-sitter-cli     # cross-platform, requires npm
+  brew install tree-sitter-cli          # macOS
+  sudo pacman -S tree-sitter-cli        # Arch Linux
   ```
 - A **Nerd Font** for `mini.icons` (e.g. JetBrainsMono Nerd Font, FiraCode Nerd Font)
 - A terminal emulator with true-color + transparency if you want the transparent theme to show through
 
 ### Language tools
 
+Choose the platform block that applies to you, then install the shared npm tools.
+
 ```sh
-# Python
+# macOS
+brew install basedpyright ruff rust-analyzer shfmt stylua taplo
+
+# Arch Linux
+sudo pacman -S ruff rust-analyzer shfmt stylua taplo-cli
+
+# Python tools fallback, if your OS package manager does not provide them
 uv tool install basedpyright
 uv tool install ruff
 
-# TypeScript / JavaScript
+# TypeScript / JavaScript and Prettier formatting
 npm install -g @vtsls/language-server typescript prettier
-
-# Rust
-brew install rust-analyzer
-rustup component add rustfmt
-
-# Lua / TOML / Shell formatters
-cargo install stylua
-cargo install taplo-cli --features lsp
-brew install shfmt          # or your platform's equivalent
 ```
 
-If you're on macOS without the Rust toolchain, `brew install stylua taplo` works too.
+Rust project support also needs a working Rust toolchain with `cargo`; a standard `rustup` install includes `rustfmt`.
 
 ---
 
@@ -120,32 +118,32 @@ Leader is `Space`.
 
 ### Find & jump (pickers + explorer)
 
-| Keys | Action |
-|---|---|
-| `<leader>ff` | Find files in cwd |
-| `<leader>fg` | Live grep across project |
-| `<leader>fb` | Open buffers |
-| `<leader>fo` | Recent (oldfiles) |
-| `<leader>fr` | Resume last picker |
-| `<leader>fh` | Help tags |
-| `<leader>fd` | Diagnostics picker |
+| Keys         | Action                                                   |
+| ------------ | -------------------------------------------------------- |
+| `<leader>ff` | Find files in cwd                                        |
+| `<leader>fg` | Live grep across project                                 |
+| `<leader>fb` | Open buffers                                             |
+| `<leader>fo` | Recent (oldfiles)                                        |
+| `<leader>fr` | Resume last picker                                       |
+| `<leader>fh` | Help tags                                                |
+| `<leader>fd` | Diagnostics picker                                       |
 | `<leader>e`  | File explorer (mini.files), rooted on the current buffer |
 
 > **Tip.** Live grep (`<leader>fg`) usually beats name-based file find when you don't know a codebase. You'll get there in 2 keystrokes. Use `<leader>fr` to re-open the previous result list without retyping a query.
 
 ### Move within a buffer
 
-| Keys | Action |
-|---|---|
-| `<C-d>` / `<C-u>` | Half-page down/up, auto-recentered |
-| `n` / `N` | Next/prev search result, auto-recentered |
-| `[d` / `]d` | Prev/next diagnostic |
-| `[h` / `]h` | Prev/next git hunk |
-| `[q` / `]q` | Prev/next quickfix entry |
-| `[b` / `]b` | Prev/next buffer (mini.bracketed) |
-| `[c` / `]c` | Prev/next comment block (mini.bracketed) |
-| `<S-h>` / `<S-l>` | Prev/next buffer (alternative) |
-| `<C-h/j/k/l>` | Move between split windows |
+| Keys              | Action                                   |
+| ----------------- | ---------------------------------------- |
+| `<C-d>` / `<C-u>` | Half-page down/up, auto-recentered       |
+| `n` / `N`         | Next/prev search result, auto-recentered |
+| `[d` / `]d`       | Prev/next diagnostic                     |
+| `[h` / `]h`       | Prev/next git hunk                       |
+| `[q` / `]q`       | Prev/next quickfix entry                 |
+| `[b` / `]b`       | Prev/next buffer (mini.bracketed)        |
+| `[c` / `]c`       | Prev/next comment block (mini.bracketed) |
+| `<S-h>` / `<S-l>` | Prev/next buffer (alternative)           |
+| `<C-h/j/k/l>`     | Move between split windows               |
 
 `mini.bracketed` adds many more `[X` / `]X` pairs (oldfile, jump, file, conflict, indent, treesitter, undo, window, yank) — all consistent. See `:h MiniBracketed`.
 
@@ -153,31 +151,31 @@ Leader is `Space`.
 
 Native:
 
-| Keys | Action |
-|---|---|
-| `gcc` | Toggle comment on current line (native, since 0.10) |
-| `gc{motion}` | Toggle comment over a motion (e.g. `gcap` paragraph) |
-| `gc` (visual) | Toggle comment on selection |
+| Keys          | Action                                               |
+| ------------- | ---------------------------------------------------- |
+| `gcc`         | Toggle comment on current line (native, since 0.10)  |
+| `gc{motion}`  | Toggle comment over a motion (e.g. `gcap` paragraph) |
+| `gc` (visual) | Toggle comment on selection                          |
 
 mini.surround:
 
-| Keys | Action |
-|---|---|
-| `sa{motion}{char}` | **S**urround **a**dd: e.g. `saiw"` quotes the inner word |
-| `sd{char}` | **S**urround **d**elete: e.g. `sd"` removes nearest quotes |
-| `sr{old}{new}` | **S**urround **r**eplace: e.g. `sr'"` swap single → double quotes |
-| `sf` / `sF` | Find next/prev surrounding char |
-| `sh` | Highlight surrounding |
+| Keys               | Action                                                            |
+| ------------------ | ----------------------------------------------------------------- |
+| `sa{motion}{char}` | **S**urround **a**dd: e.g. `saiw"` quotes the inner word          |
+| `sd{char}`         | **S**urround **d**elete: e.g. `sd"` removes nearest quotes        |
+| `sr{old}{new}`     | **S**urround **r**eplace: e.g. `sr'"` swap single → double quotes |
+| `sf` / `sF`        | Find next/prev surrounding char                                   |
+| `sh`               | Highlight surrounding                                             |
 
 mini.ai textobjects (extend `i` / `a`):
 
-| Keys | Action |
-|---|---|
+| Keys          | Action                                         |
+| ------------- | ---------------------------------------------- |
 | `vaf` / `vif` | Visual select **a**round / **i**nside function |
-| `daf` / `dif` | Delete around / inside function |
-| `caf` / `cif` | Change around / inside function |
-| `vac` / `vic` | Visual select around / inside class |
-| `vai` / `vii` | Around / inside indent block |
+| `daf` / `dif` | Delete around / inside function                |
+| `caf` / `cif` | Change around / inside function                |
+| `vac` / `vic` | Visual select around / inside class            |
+| `vai` / `vii` | Around / inside indent block                   |
 
 `mini.pairs` auto-closes brackets / quotes as you type — no keymaps to learn.
 
@@ -185,22 +183,22 @@ mini.ai textobjects (extend `i` / `a`):
 
 Inside any buffer with an LSP attached:
 
-| Keys | Action |
-|---|---|
-| `gd` | Go to definition |
-| `gD` | Go to declaration |
-| `gr` | References |
-| `gi` | Go to implementation |
-| `gy` | Go to type definition |
-| `K` | Hover documentation (basedpyright wins over ruff for Python) |
-| `<C-s>` (insert) | Signature help |
-| `<leader>rn` | Rename symbol |
-| `<leader>ca` | Code action |
-| `<leader>cl` | Run codelens |
-| `<leader>cf` | Format buffer / range |
-| `<leader>cd` | Line diagnostics float |
-| `<leader>cq` | Send all diagnostics → quickfix |
-| `<leader>th` | Toggle inlay hints (buffer) |
+| Keys             | Action                                                       |
+| ---------------- | ------------------------------------------------------------ |
+| `gd`             | Go to definition                                             |
+| `gD`             | Go to declaration                                            |
+| `gr`             | References                                                   |
+| `gi`             | Go to implementation                                         |
+| `gy`             | Go to type definition                                        |
+| `K`              | Hover documentation (basedpyright wins over ruff for Python) |
+| `<C-s>` (insert) | Signature help                                               |
+| `<leader>rn`     | Rename symbol                                                |
+| `<leader>ca`     | Code action                                                  |
+| `<leader>cl`     | Run codelens                                                 |
+| `<leader>cf`     | Format buffer / range                                        |
+| `<leader>cd`     | Line diagnostics float                                       |
+| `<leader>cq`     | Send all diagnostics → quickfix                              |
+| `<leader>th`     | Toggle inlay hints (buffer)                                  |
 
 > **Workflow.** When you don't know where to start: hover (`K`), jump (`gd`), references (`gr`). For batch fixes, dump diagnostics to quickfix with `<leader>cq` then walk them with `]q` / `[q`.
 
@@ -208,12 +206,12 @@ Inside any buffer with an LSP attached:
 
 The completion menu pops automatically on identifier chars and `.` / `:` (driven by the LSP server's trigger characters).
 
-| Keys | Action |
-|---|---|
-| `<C-n>` / `<C-p>` | Next/prev item |
-| `<CR>` | Accept |
-| `<C-e>` | Dismiss |
-| `<C-y>` | Confirm without inserting newline |
+| Keys              | Action                            |
+| ----------------- | --------------------------------- |
+| `<C-n>` / `<C-p>` | Next/prev item                    |
+| `<CR>`            | Accept                            |
+| `<C-e>`           | Dismiss                           |
+| `<C-y>`           | Confirm without inserting newline |
 
 Snippets: `vim.snippet` is built-in but minimal. If a server returns a snippet, `<Tab>` / `<S-Tab>` jump between placeholders.
 
@@ -221,57 +219,57 @@ Snippets: `vim.snippet` is built-in but minimal. If a server returns a snippet, 
 
 Format runs on every `:w` via conform with `lsp_format = "fallback"`.
 
-| Keys | Action |
-|---|---|
-| `:w` | Save and format |
-| `<leader>cf` | Format buffer / range explicitly |
-| `<leader>uf` | Toggle format-on-save **globally** |
+| Keys         | Action                                         |
+| ------------ | ---------------------------------------------- |
+| `:w`         | Save and format                                |
+| `<leader>cf` | Format buffer / range explicitly               |
+| `<leader>uf` | Toggle format-on-save **globally**             |
 | `<leader>uF` | Toggle format-on-save for **this buffer only** |
 
 > **Tip.** `<leader>uF` is for the case where you're hacking on a project with non-standard formatting and don't want the auto-format wars. `<leader>uf` flips the global switch for the session.
 
 ### Git (gitsigns)
 
-| Keys | Action |
-|---|---|
-| `]h` / `[h` | Next/prev hunk |
-| `<leader>hs` | Stage hunk |
-| `<leader>hr` | Reset hunk |
-| `<leader>hu` | Undo stage hunk |
-| `<leader>hp` | Preview hunk |
+| Keys         | Action                  |
+| ------------ | ----------------------- |
+| `]h` / `[h`  | Next/prev hunk          |
+| `<leader>hs` | Stage hunk              |
+| `<leader>hr` | Reset hunk              |
+| `<leader>hu` | Undo stage hunk         |
+| `<leader>hp` | Preview hunk            |
 | `<leader>hb` | Blame line (full popup) |
-| `<leader>hd` | Diff against index |
+| `<leader>hd` | Diff against index      |
 
 > **Workflow.** `<leader>hs` hunk-by-hunk to craft a clean commit, no terminal needed. `<leader>hp` previews exactly what would be reverted before you `<leader>hr`.
 
 ### Windows, buffers, files
 
-| Keys | Action |
-|---|---|
-| `<C-h/j/k/l>` | Window nav |
+| Keys              | Action        |
+| ----------------- | ------------- |
+| `<C-h/j/k/l>`     | Window nav    |
 | `<S-h>` / `<S-l>` | Cycle buffers |
-| `<leader>bd` | Delete buffer |
-| `<leader>w` | Save |
-| `<leader>q` | Quit |
+| `<leader>bd`      | Delete buffer |
+| `<leader>w`       | Save          |
+| `<leader>q`       | Quit          |
 
 ### Terminal
 
-| Keys | Action |
-|---|---|
-| `<leader>tt` | Open terminal in current window |
+| Keys         | Action                              |
+| ------------ | ----------------------------------- |
+| `<leader>tt` | Open terminal in current window     |
 | `<Esc><Esc>` | Exit terminal mode (back to normal) |
 
 ### Explorer (mini.files)
 
 `<leader>e` opens a column-view explorer rooted on the current buffer's file. Inside the explorer:
 
-| Keys | Action |
-|---|---|
-| `<CR>` | Enter directory / open file |
-| `-` | Go up a directory |
-| `g.` | Toggle hidden files |
-| `h` / `l` | Move column |
-| `q` | Close |
+| Keys      | Action                      |
+| --------- | --------------------------- |
+| `<CR>`    | Enter directory / open file |
+| `-`       | Go up a directory           |
+| `g.`      | Toggle hidden files         |
+| `h` / `l` | Move column                 |
+| `q`       | Close                       |
 
 The trick of mini.files: it's just a buffer. Edit it like text.
 
@@ -282,11 +280,11 @@ The trick of mini.files: it's just a buffer. Edit it like text.
 
 ### Other niceties
 
-| Keys | Action |
-|---|---|
-| `<Esc>` (normal) | Clear search highlight |
+| Keys                 | Action                             |
+| -------------------- | ---------------------------------- |
+| `<Esc>` (normal)     | Clear search highlight             |
 | `<leader>p` (visual) | Paste without overwriting register |
-| `<leader>D` | Delete to black hole register |
+| `<leader>D`          | Delete to black hole register      |
 
 ---
 
@@ -331,15 +329,15 @@ Suppose you want Go.
 
 ## Troubleshooting
 
-| Symptom | First check |
-|---|---|
-| LSP not attaching | `:checkhealth lsp` — the bottom shows configured / enabled / attached counts |
-| Completion not popping | `:lua =vim.lsp.completion.get()` returns truthy in your buffer? Confirm `vim.lsp.completion.enable(...)` ran in `LspAttach` |
-| Treesitter highlighting missing | Confirm `tree-sitter` is on PATH (`tree-sitter --version`); then `:TSUpdate` and re-open the buffer |
-| `rust_analyzer` not attaching | Confirm `rust-analyzer` is on PATH and open a Rust file inside a Cargo project |
-| Python venv not detected | Set `pythonPath` in `pyproject.toml` (`[tool.basedpyright] venvPath = "..."`) or add a `pyrightconfig.json` |
-| Formatter changes nothing | `:ConformInfo` — shows what conform will run for this filetype and which formatters are available on PATH |
-| `version = "main"` plugin issues | `vim.pack.update()` — sometimes a remote rewrite needs a re-fetch |
+| Symptom                          | First check                                                                                                                 |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| LSP not attaching                | `:checkhealth lsp` — the bottom shows configured / enabled / attached counts                                                |
+| Completion not popping           | `:lua =vim.lsp.completion.get()` returns truthy in your buffer? Confirm `vim.lsp.completion.enable(...)` ran in `LspAttach` |
+| Treesitter highlighting missing  | Confirm `tree-sitter` is on PATH (`tree-sitter --version`); then `:TSUpdate` and re-open the buffer                         |
+| `rust_analyzer` not attaching    | Confirm `rust-analyzer` is on PATH and open a Rust file inside a Cargo project                                              |
+| Python venv not detected         | Set `pythonPath` in `pyproject.toml` (`[tool.basedpyright] venvPath = "..."`) or add a `pyrightconfig.json`                 |
+| Formatter changes nothing        | `:ConformInfo` — shows what conform will run for this filetype and which formatters are available on PATH                   |
+| `version = "main"` plugin issues | `vim.pack.update()` — sometimes a remote rewrite needs a re-fetch                                                           |
 
 ---
 
