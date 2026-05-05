@@ -6,9 +6,10 @@ A professional-grade, "Out-of-the-Box" (OOTB) Neovim configuration optimized for
 
 - **Native Plugin Management**: Uses `vim.pack` (no `lazy.nvim` needed).
 - **Native Auto-completion**: IDE-style completion with `vim.opt.autocomplete`.
-- **Modern UI**: Experimental `ui2` enabled for a cleaner, non-blocking interface.
+- **Native Syntax + Semantic Highlighting**: Uses Neovim's built-in filetype syntax with LSP semantic tokens from BasedPyright.
+- **Optional Modern UI**: Experimental `ui2` can be enabled with `NVIM_UI2=1 nvim`.
 - **Python Power Duo**: Integrated with **BasedPyright** (LSP) and **Ruff** (Linting/Formatting).
-- **Virtual Env Aware**: Automatically detects `.venv` folders in your project.
+- **Virtual Env Aware**: Automatically detects `.venv` or `venv` folders in your project.
 - **Transparency**: Pre-configured for a transparent background with **TokyoNight**.
 
 ## 📦 Prerequisites
@@ -65,6 +66,7 @@ To update your plugins to the latest versions:
 1. Open Neovim.
 2. Run `:PackUpdate`.
 3. Review the changes and press `:w` to confirm the update.
+4. Commit `nvim-pack-lock.json` when you want to preserve the exact plugin revisions.
 
 ## 🚀 Future Proofing (Expanding to Other Languages)
 
@@ -77,7 +79,7 @@ This config is designed to be easily expandable. When you're ready to learn Type
   npm install -g @vtsls/language-server
   npm install -g @biomejs/biome # Modern, fast alternative to Prettier
   ```
-- **Config**: Add `vim.lsp.enable('vtsls')` to `init.lua` and `:TSInstall typescript`.
+- **Config**: Add a native `vim.lsp.config('vtsls', ...)` block and then `vim.lsp.enable('vtsls')`.
 
 ### 🦀 Rust
 - **Standard LSP**: `rust-analyzer` (The industry standard).
