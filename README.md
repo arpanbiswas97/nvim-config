@@ -135,8 +135,6 @@ Leader is `Space`.
 
 | Keys              | Action                                   |
 | ----------------- | ---------------------------------------- |
-| `v` (visual)      | **Expand** selection (Treesitter)         |
-| `V` (visual)      | **Shrink** selection (Treesitter)         |
 | `<C-d>` / `<C-u>` | Half-page down/up, auto-recentered       |
 | `n` / `N`         | Next/prev search result, auto-recentered |
 | `[d` / `]d`       | Prev/next diagnostic                     |
