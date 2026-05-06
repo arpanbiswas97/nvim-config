@@ -46,9 +46,6 @@ map("n", "<leader>fh", "<cmd>Pick help<cr>", { desc = "Help" })
 map("n", "<leader>fo", "<cmd>Pick oldfiles<cr>", { desc = "Old files" })
 map("n", "<leader>fr", "<cmd>Pick resume<cr>", { desc = "Resume picker" })
 map("n", "<leader>fd", "<cmd>Pick diagnostic<cr>", { desc = "Diagnostics picker" })
-map("n", "<leader>f.", function()
-  require("mini.pick").builtin.files({}, { postfilter = function() return true end, list_flags = "-tf --hidden" })
-end, { desc = "Find all files (hidden)" })
 
 map("n", "<leader>th", function()
   local bufnr = 0
