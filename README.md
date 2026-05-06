@@ -121,7 +121,7 @@ Leader is `Space`.
 | Keys         | Action                                                   |
 | ------------ | -------------------------------------------------------- |
 | `<leader>ff` | Find files in cwd                                        |
-| `<leader>fA` | Find ALL files (hidden + ignored)                        |
+| `<leader>f.` | Find ALL files (hidden + ignored)                        |
 | `<leader>fg` | Live grep across project                                 |
 | `<leader>fb` | Open buffers                                             |
 | `<leader>fo` | Recent (oldfiles)                                        |
@@ -130,7 +130,7 @@ Leader is `Space`.
 | `<leader>fd` | Diagnostics picker                                       |
 | `<leader>e`  | File explorer (mini.files), rooted on the current buffer |
 
-> **Tip.** Use `<leader>fA` to find `.env` or other hidden files. Live grep (`<leader>fg`) usually beats name-based file find when you don't know a codebase. Use `<leader>fr` to re-open the previous result list without retyping a query.
+> **Tip.** Use `<leader>f.` to find `.env` or other hidden files. Live grep (`<leader>fg`) usually beats name-based file find when you don't know a codebase. Use `<leader>fr` to re-open the previous result list without retyping a query.
 
 ### Move within a buffer
 
