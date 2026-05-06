@@ -13,6 +13,15 @@ require("mini.files").setup({
   },
 })
 
+vim.api.nvim_create_autocmd("User", {
+  pattern = "MiniFilesBufferCreate",
+  callback = function(args)
+    vim.keymap.set("n", "<CR>", function()
+      require("mini.files").go_in({ close_on_file = true })
+    end, { buffer = args.data.buf_id, desc = "Open and close" })
+  end,
+})
+
 require("mini.pick").setup({
   mappings = {
     choose_marked = "<C-q>",
