@@ -121,6 +121,7 @@ Leader is `Space`.
 | Keys         | Action                                                   |
 | ------------ | -------------------------------------------------------- |
 | `<leader>ff` | Find files in cwd                                        |
+| `<leader>fA` | Find ALL files (hidden + ignored)                        |
 | `<leader>fg` | Live grep across project                                 |
 | `<leader>fb` | Open buffers                                             |
 | `<leader>fo` | Recent (oldfiles)                                        |
@@ -129,7 +130,7 @@ Leader is `Space`.
 | `<leader>fd` | Diagnostics picker                                       |
 | `<leader>e`  | File explorer (mini.files), rooted on the current buffer |
 
-> **Tip.** Live grep (`<leader>fg`) usually beats name-based file find when you don't know a codebase. You'll get there in 2 keystrokes. Use `<leader>fr` to re-open the previous result list without retyping a query.
+> **Tip.** Use `<leader>fA` to find `.env` or other hidden files. Live grep (`<leader>fg`) usually beats name-based file find when you don't know a codebase. Use `<leader>fr` to re-open the previous result list without retyping a query.
 
 ### Move within a buffer
 
@@ -263,13 +264,14 @@ Format runs on every `:w` via conform with `lsp_format = "fallback"`.
 
 `<leader>e` opens a column-view explorer rooted on the current buffer's file. Inside the explorer:
 
-| Keys      | Action                      |
-| --------- | --------------------------- |
-| `<CR>`    | Enter directory / open file |
-| `-`       | Go up a directory           |
-| `g.`      | Toggle hidden files         |
-| `h` / `l` | Move column                 |
-| `q`       | Close                       |
+| Keys      | Action                              |
+| --------- | ----------------------------------- |
+| `<CR>`    | Open file and **close** explorer    |
+| `-`       | Go up a directory                   |
+| `g.`      | Toggle hidden files                 |
+| `h` / `l` | Move column / Peek into file/folder |
+| `q`       | Close                               |
+
 
 The trick of mini.files: it's just a buffer. Edit it like text.
 
